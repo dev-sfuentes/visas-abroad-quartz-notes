@@ -11,12 +11,22 @@
       cd $DEVENV_ROOT/$project_name
     '';
   in {
-    quartz-preview.exec = ''
+    # Build and preview locally
+    preview.exec = ''
       ${move-to-project-folder}
       npx quartz build --serve
     '';
-    quartz-sync.exec = ''
+
+    # Sync with Repository
+    sync.exec = ''
       ${move-to-project-folder}
+      npx quartz sync
+    '';
+
+    # Build and sync to show it in Github Pages
+    build.exec = ''
+      ${move-to-project-folder}
+      npx quartz build
       npx quartz sync
     '';
   };
